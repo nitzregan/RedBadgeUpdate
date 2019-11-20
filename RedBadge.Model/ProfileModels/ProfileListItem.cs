@@ -24,6 +24,8 @@ namespace RedBadge.Model
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string OtherInfo { get; set; }
+        public string AthleteUsername { get; set; }
+        public string ParentUsername { get; set; }
         public ICollection<Team> MyTeams { get; set; }
         public string Comment { get; set; }
         public DateTimeOffset? CreatedUtc { get; set; }

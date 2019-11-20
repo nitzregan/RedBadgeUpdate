@@ -84,6 +84,70 @@ namespace RedBadge.Services
             }
         }
 
+        public ICollection<Profile> AddAthleteToRosterByProfileID (int ProfileID, int TeamID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Profile
+                        .Where(e => e.ProfileID == ProfileID)
+                        .Single();
+
+                var queryTwo =
+                   ctx
+                        .Team
+                        .Where(e => e.TeamID == TeamID)
+                        .Single().Roster;
+
+                queryTwo.Add(query);
+                ctx.SaveChanges();
+                return queryTwo.ToList();
+            }
+        }
+        
+        //add "duplicate athlete" protection, ask andrew
+        //if (!newTeam.Golfers.Contains(newGolfer.Golfer))
+        //            {
+        //                if (SumGolferRanking(teamId) + newGolfer.PowerRanking <= 13)
+        //                {
+        //                    newTeam.Golfers.Add(newGolfer.Golfer);
+        //                    ctx.SaveChanges();
+        //                    return "Done";
+        //                }
+        //                else
+        //                {
+        //                    return "Power Ranking";
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return "Duplicate Golfer";
+        //            }
+
+
+        public ICollection<Profile> RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Team
+                        .Where(e => e.TeamID == TeamID)
+                        .Single().Roster;
+
+                var queryTwo =
+                   ctx
+                        .Profile
+                        .Where(e => e.ProfileID == ProfileID)
+                        .Single();
+
+                query.Remove(queryTwo);
+                ctx.SaveChanges();
+                return query.ToList();
+            }
+        }
+
         public IEnumerable<TeamListItem> GetAllTeamsForAthleteByUserID(Guid UserID)
         {
             using (var ctx = new ApplicationDbContext())
