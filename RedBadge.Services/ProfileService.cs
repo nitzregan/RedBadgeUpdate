@@ -22,6 +22,7 @@ namespace RedBadge.Services
             var entity =
                 new Profile()
                 {
+                    UserID = _userID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Birthday = model.Birthday,
@@ -52,7 +53,7 @@ namespace RedBadge.Services
                         .Single();
                 return new ProfileListItem
                 {
-                    UserID = _userID,
+                    UserID = query.UserID,
                     ProfileID = query.ProfileID,
                     FirstName = query.FirstName,
                     LastName = query.LastName,

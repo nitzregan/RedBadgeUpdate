@@ -14,10 +14,8 @@ namespace RedBadge.Model
         public Guid UserID { get; set; }
         [Key]
         public int ProfileID { get; set; }
-        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [Required]
         [Display(Name = "Late Name")]
         public string LastName { get; set; }
         public DateTime? Birthday { get; set; }
