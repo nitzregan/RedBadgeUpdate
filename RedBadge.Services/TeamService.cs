@@ -31,7 +31,7 @@ namespace RedBadge.Services
                 ctx.Team.Add(entity);
                 return ctx.SaveChanges() == 1;
             }
-        }
+        } 
 
         public IEnumerable<TeamListItem> GetAllTeamsForCoachByUserID(Guid UserID)
         {
