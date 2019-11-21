@@ -63,6 +63,16 @@ namespace RedBadgeNew.API.Controllers
             var teamService = new TeamService(userID);
             return teamService;
         }
+
+        public IHttpActionResult Post(TeamCreate teamCreate)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var service = CreateTeamService();
+            if (!service.CreateTeam(teamCreate))
+                return InternalServerError();
+            return Ok();
+        }
     }
 }
 

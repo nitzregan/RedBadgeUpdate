@@ -47,5 +47,15 @@ namespace RedBadgeNew.API.Controllers
             var teamMessage = teamMessagingService.GetTeamMessages();
             return Ok(teamMessage);
         }
+
+        public IHttpActionResult Post(TeamMessagingCreate teamMessagingCreate)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var service = CreateTeamMessagingService();
+            if (!service.CreateTeamMessaging(teamMessagingCreate))
+                return InternalServerError();
+            return Ok();
+        }
     }
 }

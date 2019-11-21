@@ -20,9 +20,14 @@ namespace RedBadge.Services
 
         public bool CreateTeamMessaging(TeamMessagingCreate model)
         {
+            byte[] bytes = null;
+            if (model.File != null){ 
+
             Stream fs = model.File.InputStream;
             BinaryReader br = new BinaryReader(fs);
-            byte[] bytes = br.ReadBytes((Int32)fs.Length);
+            bytes = br.ReadBytes((Int32)fs.Length);
+
+            }
 
             var entity =
                 new TeamMessaging()
@@ -97,9 +102,15 @@ namespace RedBadge.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                Stream fs = model.File.InputStream;
-                BinaryReader br = new BinaryReader(fs);
-                byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                byte[] bytes = null;
+                if (model.File != null)
+                {
+
+                    Stream fs = model.File.InputStream;
+                    BinaryReader br = new BinaryReader(fs);
+                    bytes = br.ReadBytes((Int32)fs.Length);
+
+                }
 
                 var entity =
                     ctx
