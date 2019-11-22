@@ -10,7 +10,7 @@ namespace RedBadge.Model
     public class CommentListItem
     {
         public Guid UserID { get; set; }
-        public int ProfileID { get; set; }
+        public int? ProfileID { get; set; }
         public int CommentID { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

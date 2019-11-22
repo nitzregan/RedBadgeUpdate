@@ -13,7 +13,7 @@ namespace RedBadge.Data
         [Required]
         public Guid UserID { get; set; }
         [ForeignKey("ProfileVariable")]
-        public int ProfileID { get; set; }
+        public int? ProfileID { get; set; }
         public virtual Profile ProfileVariable { get; set; }
         public int CommentID { get; set; }
         public string Title { get; set; }

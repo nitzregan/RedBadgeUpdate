@@ -12,7 +12,7 @@ namespace RedBadge.Data
         [Required]
         public Guid UserID { get; set; }
         [Key]
-        public int ProfileID { get; set; }
+        public int? ProfileID { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Late Name")]

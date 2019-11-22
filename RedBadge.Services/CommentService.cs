@@ -55,6 +55,8 @@ namespace RedBadge.Services
                 new CommentDetail
                 {
                     UserID = entity.UserID,
+                    ProfileID = entity.ProfileID,
+                    CommentID = entity.CommentID,
                     Title = entity.Title,
                     Content = entity.Content,
                     DateSent = entity.DateSent
@@ -62,7 +64,7 @@ namespace RedBadge.Services
             }
         }
 
-        public bool DeleteComment(int CommentID, int ProfileID)
+        public bool DeleteComment(int CommentID)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -72,13 +74,13 @@ namespace RedBadge.Services
                         .Where(e => e.UserID == _userId)
                         .Single(e => e.CommentID == CommentID);
 
-                var entity1 =
-                    ctx
-                        .Profile
-                        .Include("Comments")
-                        .Single(e => e.ProfileID == ProfileID);
+                //var entity1 =
+                //    ctx
+                //        .Profile
+                //        .Include("Comments")
+                //        .Single(e => e.ProfileID == ProfileID);
 
-                entity1.Comments.Remove(entity);
+                ctx.Comment.Remove(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
@@ -97,8 +99,9 @@ namespace RedBadge.Services
                             {
                                 ProfileID = e.ProfileID,
                                 Title = e.Title,
+                                CommentID = e.CommentID,
                                 Content = e.Content,
-                                DateSent = e.DateSent,
+                                DateSent = e.DateSent
                             }
                         );
                 return query.ToArray();

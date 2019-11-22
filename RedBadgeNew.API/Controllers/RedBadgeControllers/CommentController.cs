@@ -34,10 +34,10 @@ namespace RedBadgeNew.API.Controllers
             return Ok(comments);
         }
 
-        public IHttpActionResult Delete(int CommentID, int ProfileID)
+        public IHttpActionResult Delete(int CommentID)
         {
             var service = CreateCommentService();
-            if (!service.DeleteComment(CommentID, ProfileID))
+            if (!service.DeleteComment(CommentID))
                 return InternalServerError();
             return Ok();
         }
