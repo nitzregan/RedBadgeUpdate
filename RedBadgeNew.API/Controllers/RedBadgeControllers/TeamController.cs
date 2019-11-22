@@ -2,10 +2,6 @@
 using RedBadge.Model;
 using RedBadge.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace RedBadgeNew.API.Controllers
@@ -64,13 +60,67 @@ namespace RedBadgeNew.API.Controllers
             return teamService;
         }
 
-        public IHttpActionResult Post(TeamCreate teamCreate)
+        public IHttpActionResult Post(TeamCreate teamCreate, int ProfileID)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var service = CreateTeamService();
-            if (!service.CreateTeam(teamCreate))
+            if (!service.CreateTeam(teamCreate, ProfileID))
                 return InternalServerError();
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/AddPlayer")]
+        public IHttpActionResult Put(int ProfileID, int TeamID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var service = CreateTeamService();
+            if (!service.AddAthleteToRosterByProfileID(ProfileID, TeamID))
+                return InternalServerError();
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/RemovePlayer")]
+        public IHttpActionResult PutBack(int ProfileID, int TeamID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var service = CreateTeamService();
+            if (!service.RemoveAthleteFromRosterByProfileID(ProfileID, TeamID))
+                return InternalServerError();
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/AddPlayer")]
+        public IHttpActionResult Put(int ProfileID, int TeamID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var service = CreateTeamService();
+
+            if (!service.AddAthleteToRosterByProfileID(ProfileID, TeamID))
+                return InternalServerError();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/RemovePlayer")]
+        public IHttpActionResult PutBack(int ProfileID, int TeamID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var service = CreateTeamService();
+
+            if (!service.RemoveAthleteFromRosterByProfileID(ProfileID, TeamID))
+                return InternalServerError();
+
             return Ok();
         }
     }
