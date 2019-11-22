@@ -46,7 +46,7 @@ namespace RedBadge.Services
                 
                 return ctx.SaveChanges() == 1;
             }
-        } 
+        }
 
         public IEnumerable<TeamListItem> GetAllTeamsForCoachByUserID(Guid UserID)
         {
@@ -117,6 +117,7 @@ namespace RedBadge.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+      
         public bool RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
@@ -155,6 +156,29 @@ namespace RedBadge.Services
         //    }
         //}
 
+
+        public bool RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Team
+                        .Include("Roster")
+                        .Single(e => e.TeamID == TeamID);
+
+                var queryTwo =
+                   ctx
+                        .Profile
+                        .Where(e => e.ProfileID == ProfileID)
+                        .Single();
+
+                query.Roster.Remove(queryTwo);
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+
         //add "duplicate athlete" protection, ask andrew
         //if (!newTeam.Golfers.Contains(newGolfer.Golfer))
         //            {
@@ -173,6 +197,7 @@ namespace RedBadge.Services
         //            {
         //                return "Duplicate Golfer";
         //            }
+
 
 
         //public ICollection<Profile> RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
