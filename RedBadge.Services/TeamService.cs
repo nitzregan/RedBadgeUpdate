@@ -158,26 +158,26 @@ namespace RedBadge.Services
         //}
 
 
-        public bool RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var query =
-                    ctx
-                        .Team
-                        .Include("Roster")
-                        .Single(e => e.TeamID == TeamID);
+        //public bool RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
+        //{
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        var query =
+        //            ctx
+        //                .Team
+        //                .Include("Roster")
+        //                .Single(e => e.TeamID == TeamID);
 
-                var queryTwo =
-                   ctx
-                        .Profile
-                        .Where(e => e.ProfileID == ProfileID)
-                        .Single();
+        //        var queryTwo =
+        //           ctx
+        //                .Profile
+        //                .Where(e => e.ProfileID == ProfileID)
+        //                .Single();
 
-                query.Roster.Remove(queryTwo);
-                return ctx.SaveChanges() == 1;
-            }
-        }
+        //        query.Roster.Remove(queryTwo);
+        //        return ctx.SaveChanges() == 1;
+        //    }
+        //}
 
 
         //add "duplicate athlete" protection, ask andrew
