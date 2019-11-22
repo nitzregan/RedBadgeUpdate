@@ -17,18 +17,33 @@ namespace RedBadge.Services
             _userID = userID;
         }
 
-        public bool CreateTeam(TeamCreate model)
+        public bool CreateTeam(TeamCreate model, int ProfileID)
         {
+           
             var entity =
                 new Team()
                 {
+                    UserID = model.UserID,
                     TeamName = model.TeamName,
-                    Roster = model.Roster,
-                    TeamEvents = model.TeamEvents
+                    Roster = new List<Profile>(),
+                    TeamEvents = new List<Event>()
                 };
             using (var ctx = new ApplicationDbContext())
             {
+                
+
                 ctx.Team.Add(entity);
+                
+                if (ctx.SaveChanges() == 1)
+                {
+                    var query =
+                   ctx
+                       .Profile
+                       .Where(e => e.ProfileID == ProfileID)
+                       .Single();
+                    entity.Roster.Add(query);
+                }
+                
                 return ctx.SaveChanges() == 1;
             }
         } 
@@ -65,7 +80,7 @@ namespace RedBadge.Services
                     ctx
                     .Team
                     .Single(e => e.TeamID == id);
-                if (entity.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
+                if (entity.Roster.SingleOrDefault(e => e.UserID == entity.UserID) != null)
                 {
 
                     return
@@ -84,7 +99,7 @@ namespace RedBadge.Services
             }
         }
 
-        public ICollection<Profile> AddAthleteToRosterByProfileID (int ProfileID, int TeamID)
+        public bool AddAthleteToRosterByProfileID(int ProfileID, int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -93,19 +108,53 @@ namespace RedBadge.Services
                         .Profile
                         .Where(e => e.ProfileID == ProfileID)
                         .Single();
-
                 var queryTwo =
                    ctx
                         .Team
-                        .Where(e => e.TeamID == TeamID)
-                        .Single().Roster;
-
-                queryTwo.Add(query);
-                ctx.SaveChanges();
-                return queryTwo.ToList();
+                        .Include("Roster")
+                        .Single(e => e.TeamID == TeamID);
+                queryTwo.Roster.Add(query);
+                return ctx.SaveChanges() == 1;
             }
         }
-        
+        public bool RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Team
+                        .Include("Roster")
+                        .Single(e => e.TeamID == TeamID);
+                var queryTwo =
+                   ctx
+                        .Profile
+                        .Where(e => e.ProfileID == ProfileID)
+                        .Single();
+                query.Roster.Remove(queryTwo);
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        //public bool RemoveAthleteToRosterByProfileID(int ProfileID, int TeamID)
+        //{
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        var query =
+        //            ctx
+        //                .Profile
+        //                .Where(e => e.ProfileID == ProfileID)
+        //                .Single();
+        //        var queryTwo =
+        //           ctx
+        //                .Team
+        //                .Include("Roster")
+        //                .Single(e => e.TeamID == TeamID);
+        //        queryTwo.Roster.Remove(query);
+        //        return ctx.SaveChanges() == 1;
+        //    }
+        //}
+
         //add "duplicate athlete" protection, ask andrew
         //if (!newTeam.Golfers.Contains(newGolfer.Golfer))
         //            {
@@ -126,27 +175,27 @@ namespace RedBadge.Services
         //            }
 
 
-        public ICollection<Profile> RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var query =
-                    ctx
-                        .Team
-                        .Where(e => e.TeamID == TeamID)
-                        .Single().Roster;
+        //public ICollection<Profile> RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
+        //{
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        var query =
+        //            ctx
+        //                .Team
+        //                .Where(e => e.TeamID == TeamID)
+        //                .Single().Roster;
 
-                var queryTwo =
-                   ctx
-                        .Profile
-                        .Where(e => e.ProfileID == ProfileID)
-                        .Single();
+        //        var queryTwo =
+        //           ctx
+        //                .Profile
+        //                .Where(e => e.ProfileID == ProfileID)
+        //                .Single();
 
-                query.Remove(queryTwo);
-                ctx.SaveChanges();
-                return query.ToList();
-            }
-        }
+        //        query.Remove(queryTwo);
+        //        ctx.SaveChanges();
+        //        return query.ToList();
+        //    }
+        //}
 
         public IEnumerable<TeamListItem> GetAllTeamsForAthleteByUserID(Guid UserID)
         {
@@ -176,14 +225,16 @@ namespace RedBadge.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity =
+                var query =
                     ctx
                         .Team
-                        .Single(e => e.TeamID == model.TeamID && e.UserID == _userID);
+                        //.Include("Roster")
+                        //.Include("TeamEvents")
+                        .Single(e => e.TeamID == model.TeamID && e.UserID == model.UserID);
 
-                entity.TeamName = model.TeamName;
-                entity.Roster = model.Roster;
-                entity.TeamEvents = model.TeamEvents;
+                query.TeamName = model.TeamName;
+                //entity.Roster = model.Roster;
+                //entity.TeamEvents = model.TeamEvents;
                 return ctx.SaveChanges() == 1;
             }
         }

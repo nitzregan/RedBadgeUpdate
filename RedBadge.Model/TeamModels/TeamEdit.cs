@@ -17,7 +17,7 @@ namespace RedBadge.Model
         [Required]
         [Display(Name = "Team Name")]
         public string TeamName { get; set; }
-        public ICollection<Profile> Roster { get; set; }
-        public ICollection<Event> TeamEvents { get; set; }
+        //public ICollection<Profile> Roster { get; set; }
+        //public ICollection<Event> TeamEvents { get; set; }
     }
 }
