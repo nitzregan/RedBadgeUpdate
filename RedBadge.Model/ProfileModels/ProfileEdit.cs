@@ -23,7 +23,7 @@ namespace RedBadge.Model
         public string PhoneNumber { get; set; }
         public string OtherInfo { get; set; }
         public ICollection<Team> MyTeams { get; set; }
-        public string Comment { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public DateTimeOffset? CreatedUtc { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace RedBadge.Services
                     UserID = _userID,
                     Title = model.Title,
                     Content = model.Content,
-                    CreatedUtc = DateTime.Now,
+                    CreatedUtc = DateTimeOffset.Now,
                     TeamID = model.TeamID,
                 };
 
@@ -47,14 +47,15 @@ namespace RedBadge.Services
             }
         }
 
-        public IEnumerable<TeamMessagingListItem> GetTeamMessages()
+        public IEnumerable<TeamMessagingListItem> GetTeamMessages(int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var query =
+
+                var query1 =
                     ctx
                     .TeamMessaging
-                    .Where(e => e.Roster.SingleOrDefault(i => i.UserID == _userID) != null)
+                    .Where(e => e.TeamID == TeamID && e.TeamVariable.Roster.FirstOrDefault(i => i.UserID == _userID) != null)
                     .Select(
                         e =>
                             new TeamMessagingListItem
@@ -65,22 +66,30 @@ namespace RedBadge.Services
                                 Content = e.Content,
                                 CreatedUtc = e.CreatedUtc,
                                 Modifiedutc = e.Modifiedutc,
+                                TeamID = e.TeamID,
+                                UserID = e.UserID
                             }
                         );
 
-                return query.ToArray();
+                return query1.ToList();
             }
         }
 
-        public TeamMessagingDetail GetTeamMessageById(int id)
+        public TeamMessagingDetail GetTeamMessageById(int id, int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
             {
+                var entity1 =
+                    ctx
+                        .Team
+                        .Include("Roster")
+                        .Single(e => e.TeamID == TeamID);
                 var entity =
                     ctx
                         .TeamMessaging
                         .Single(e => e.MessageID == id);
-                if (entity.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
+
+                if (entity1.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
                 {
                     return
                     new TeamMessagingDetail
@@ -121,7 +130,7 @@ namespace RedBadge.Services
                 entity.FileContent = bytes;
                 entity.Title = model.Title;
                 entity.Content = model.Content;
-                entity.Modifiedutc = DateTime.Now;
+                entity.Modifiedutc = DateTimeOffset.Now;
 
                 return ctx.SaveChanges() == 1;
             }

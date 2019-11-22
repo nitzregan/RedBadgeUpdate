@@ -75,9 +75,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTables\Comment.cs" />
     <Compile Include="DataTables\Event.cs" />
     <Compile Include="DataTables\Profile.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Migrations\201911211800030_InitialCreate.cs" />
+    <Compile Include="Migrations\201911211800030_InitialCreate.Designer.cs">
+      <DependentUpon>201911211800030_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911221803372_Teammessagedata.cs" />
+    <Compile Include="Migrations\201911221803372_Teammessagedata.Designer.cs">
+      <DependentUpon>201911221803372_Teammessagedata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTables\Team.cs" />
     <Compile Include="DataTables\TeamMessaging.cs" />
@@ -85,6 +95,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911211800030_InitialCreate.resx">
+      <DependentUpon>201911211800030_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911221803372_Teammessagedata.resx">
+      <DependentUpon>201911221803372_Teammessagedata.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

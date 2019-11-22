@@ -76,6 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentModels\CommentCreate.cs" />
+    <Compile Include="CommentModels\CommentDetail.cs" />
+    <Compile Include="CommentModels\CommentListItem.cs" />
     <Compile Include="EventModels\EventCreate.cs" />
     <Compile Include="EventModels\EventDetail.cs" />
     <Compile Include="EventModels\EventEdit.cs" />
@@ -104,5 +107,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -70,29 +70,7 @@ namespace RedBadgeNew.API.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        [Route("api/AddPlayer")]
-        public IHttpActionResult Put(int ProfileID, int TeamID)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            var service = CreateTeamService();
-            if (!service.AddAthleteToRosterByProfileID(ProfileID, TeamID))
-                return InternalServerError();
-            return Ok();
-        }
 
-        [HttpPut]
-        [Route("api/RemovePlayer")]
-        public IHttpActionResult PutBack(int ProfileID, int TeamID)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            var service = CreateTeamService();
-            if (!service.RemoveAthleteFromRosterByProfileID(ProfileID, TeamID))
-                return InternalServerError();
-            return Ok();
-        }
 
         [HttpPut]
         [Route("api/AddPlayer")]

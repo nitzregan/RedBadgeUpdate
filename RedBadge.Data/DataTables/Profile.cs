@@ -24,7 +24,7 @@ namespace RedBadge.Data
         public string AthleteUsername { get; set; }
         public string ParentUsername { get; set; }
         public ICollection<Team> MyTeams { get; set; }
-        public string Comment { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public DateTimeOffset? CreatedUtc { get; set; }
     }
 }
