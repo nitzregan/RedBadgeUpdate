@@ -37,11 +37,12 @@ namespace RedBadge.Services
                     Title = model.Title,
                     Content = model.Content,
                     CreatedUtc = DateTime.Now,
+                    TeamID = model.TeamID,
                 };
 
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.TeamMessaging.Add(entity);
+                ctx.TeamMessaging.Add(entity); 
                 return ctx.SaveChanges() == 1;
             }
         }

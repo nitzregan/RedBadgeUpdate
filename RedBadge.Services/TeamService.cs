@@ -23,6 +23,7 @@ namespace RedBadge.Services
             var entity =
                 new Team()
                 {
+
                     UserID = model.UserID,
                     TeamName = model.TeamName,
                     Roster = new List<Profile>(),
