@@ -49,28 +49,28 @@ namespace RedBadge.Services
             }
         }
 
-        public IEnumerable<TeamListItem> GetAllTeamsForCoachByUserID(Guid UserID)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var query =
-                    ctx
-                    .Team
-                    .Where(e => e.UserID == _userID)
-                    .Select(
-                        e =>
-                            new TeamListItem
-                            {
-                                UserID = _userID,
-                                TeamID = e.TeamID,
-                                TeamName = e.TeamName,
-                                Roster = e.Roster,
-                                TeamEvents = e.TeamEvents
-                            }
-                        );
-                return query.ToArray();
-            }
-        }
+        //public IEnumerable<TeamListItem> GetAllTeamsByUserID(Guid UserID)
+        //{
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        var query =
+        //            ctx
+        //            .Team
+        //            .Where(e => e.UserID == _userID)
+        //            .Select(
+        //                e =>
+        //                    new TeamListItem
+        //                    {
+        //                        UserID = _userID,
+        //                        TeamID = e.TeamID,
+        //                        TeamName = e.TeamName,
+        //                        Roster = e.Roster,
+        //                        TeamEvents = e.TeamEvents
+        //                    }
+        //                );
+        //        return query.ToArray();
+        //    }
+        //}
 
 
         public TeamDetail GetTeamById(int id)
@@ -223,7 +223,7 @@ namespace RedBadge.Services
         //    }
         //}
 
-        public IEnumerable<TeamListItem> GetAllTeamsForAthleteByUserID(Guid UserID)
+        public IEnumerable<TeamListItem> GetAllTeamsByUserID(Guid UserID)
         {
             using (var ctx = new ApplicationDbContext())
             {

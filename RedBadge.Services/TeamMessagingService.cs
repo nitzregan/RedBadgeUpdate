@@ -72,14 +72,14 @@ namespace RedBadge.Services
             }
         }
 
-        public TeamMessagingDetail GetTeamMessageById(int id)
+        public TeamMessagingDetail GetTeamMessageById(int MessageID)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .TeamMessaging
-                        .Single(e => e.MessageID == id);
+                        .Single(e => e.MessageID == MessageID);
                 if (entity.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
                 {
                     return
@@ -127,14 +127,14 @@ namespace RedBadge.Services
             }
         }
 
-        public bool DeleteTeamMessage(int messageId)
+        public bool DeleteTeamMessage(int MessageID)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .TeamMessaging
-                        .Single(e => e.MessageID == messageId && e.UserID == _userID);
+                        .Single(e => e.MessageID == MessageID && e.UserID == _userID);
 
                 ctx.TeamMessaging.Remove(entity);
 

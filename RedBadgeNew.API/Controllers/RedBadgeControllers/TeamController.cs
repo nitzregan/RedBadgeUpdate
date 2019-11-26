@@ -9,17 +9,19 @@ namespace RedBadgeNew.API.Controllers
     [Authorize]
     public class TeamController : ApiController
     {
-        public IHttpActionResult GetAllForCoach(Guid UserID)
-        {
-            TeamService teamService = CreateTeamService();
-            var team = teamService.GetAllTeamsForCoachByUserID(UserID);
-            return Ok(team);
-        }
+        //public IHttpActionResult GetAllForCoach(Guid UserID)
+        //{
+        //    TeamService teamService = CreateTeamService();
+        //    var team = teamService.GetAllTeamsForCoachByUserID(UserID);
+        //    return Ok(team);
+        //}
 
+        [HttpGet]
+        [Route("api/TeamsByUser")]
         public IHttpActionResult GetAllForAthlete(Guid UserID)
         {
             TeamService teamService = CreateTeamService();
-            var team = teamService.GetAllTeamsForAthleteByUserID(UserID);
+            var team = teamService.GetAllTeamsByUserID(UserID);
             return Ok(team);
         }
 
