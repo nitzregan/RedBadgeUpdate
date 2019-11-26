@@ -124,7 +124,7 @@ namespace RedBadge.Services
                 var entity =
                     ctx
                         .Profile
-                        .Single(e => e.ProfileID == model.ProfileID && e.UserID == _userID);
+                        .Single(e => e.ProfileID == model.ProfileID && e.UserID == model.UserID);
 
                 entity.FirstName = model.FirstName;
                 entity.LastName = model.LastName;

@@ -20,9 +20,14 @@ namespace RedBadge.Services
 
         public bool CreateTeamMessaging(TeamMessagingCreate model)
         {
+            byte[] bytes = null;
+            if (model.File != null){ 
+
             Stream fs = model.File.InputStream;
             BinaryReader br = new BinaryReader(fs);
-            byte[] bytes = br.ReadBytes((Int32)fs.Length);
+            bytes = br.ReadBytes((Int32)fs.Length);
+
+            }
 
             var entity =
                 new TeamMessaging()
@@ -32,11 +37,12 @@ namespace RedBadge.Services
                     Title = model.Title,
                     Content = model.Content,
                     CreatedUtc = DateTime.Now,
+                    TeamID = model.TeamID,
                 };
 
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.TeamMessaging.Add(entity);
+                ctx.TeamMessaging.Add(entity); 
                 return ctx.SaveChanges() == 1;
             }
         }
@@ -66,14 +72,14 @@ namespace RedBadge.Services
             }
         }
 
-        public TeamMessagingDetail GetTeamMessageById(int id)
+        public TeamMessagingDetail GetTeamMessageById(int MessageID)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .TeamMessaging
-                        .Single(e => e.MessageID == id);
+                        .Single(e => e.MessageID == MessageID);
                 if (entity.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
                 {
                     return
@@ -97,9 +103,15 @@ namespace RedBadge.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                Stream fs = model.File.InputStream;
-                BinaryReader br = new BinaryReader(fs);
-                byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                byte[] bytes = null;
+                if (model.File != null)
+                {
+
+                    Stream fs = model.File.InputStream;
+                    BinaryReader br = new BinaryReader(fs);
+                    bytes = br.ReadBytes((Int32)fs.Length);
+
+                }
 
                 var entity =
                     ctx
@@ -115,14 +127,14 @@ namespace RedBadge.Services
             }
         }
 
-        public bool DeleteTeamMessage(int messageId)
+        public bool DeleteTeamMessage(int MessageID)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .TeamMessaging
-                        .Single(e => e.MessageID == messageId && e.UserID == _userID);
+                        .Single(e => e.MessageID == MessageID && e.UserID == _userID);
 
                 ctx.TeamMessaging.Remove(entity);
 

@@ -19,10 +19,10 @@ namespace RedBadgeNew.API.Controllers
             var teamMessagingService = new TeamMessagingService(userID);
             return teamMessagingService;
         }
-        public IHttpActionResult Delete(int messageId)
+        public IHttpActionResult Delete(int MessageID)
         {
             var service = CreateTeamMessagingService();
-            if (!service.DeleteTeamMessage(messageId))
+            if (!service.DeleteTeamMessage(MessageID))
                 return InternalServerError();
             return Ok();
         }
@@ -35,10 +35,10 @@ namespace RedBadgeNew.API.Controllers
                 return InternalServerError();
             return Ok();
         }
-        public IHttpActionResult Get(int messageId)
+        public IHttpActionResult Get(int MessageID)
         {
             TeamMessagingService teamMessagingService = CreateTeamMessagingService();
-            var teamMessage = teamMessagingService.GetTeamMessageById(messageId);
+            var teamMessage = teamMessagingService.GetTeamMessageById(MessageID);
             return Ok(teamMessage);
         }
         public IHttpActionResult GetAll()
@@ -46,6 +46,16 @@ namespace RedBadgeNew.API.Controllers
             TeamMessagingService teamMessagingService = CreateTeamMessagingService();
             var teamMessage = teamMessagingService.GetTeamMessages();
             return Ok(teamMessage);
+        }
+
+        public IHttpActionResult Post(TeamMessagingCreate teamMessagingCreate)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var service = CreateTeamMessagingService();
+            if (!service.CreateTeamMessaging(teamMessagingCreate))
+                return InternalServerError();
+            return Ok();
         }
     }
 }
