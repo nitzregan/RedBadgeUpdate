@@ -23,6 +23,6 @@ namespace RedBadge.Data
         public byte[] FileContent { get; set; }
         public DateTimeOffset? CreatedUtc { get; set; }
         public DateTimeOffset? Modifiedutc { get; set; }
-        //public ICollection<Profile> Roster { get; set; }
+        public ICollection<Profile> Roster { get; set; }
     }
 }

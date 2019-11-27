@@ -35,17 +35,10 @@ namespace RedBadgeNew.API.Controllers
                 return InternalServerError();
             return Ok();
         }
-<<<<<<< HEAD
         public IHttpActionResult Get(int messageId, int TeamID)
         {
             TeamMessagingService teamMessagingService = CreateTeamMessagingService();
             var teamMessage = teamMessagingService.GetTeamMessageById(messageId, TeamID);
-=======
-        public IHttpActionResult Get(int MessageID)
-        {
-            TeamMessagingService teamMessagingService = CreateTeamMessagingService();
-            var teamMessage = teamMessagingService.GetTeamMessageById(MessageID);
->>>>>>> a8c1fb4577c4ffd31103d68d158f32b4f4c7c167
             return Ok(teamMessage);
         }
         public IHttpActionResult GetAll(int TeamID)

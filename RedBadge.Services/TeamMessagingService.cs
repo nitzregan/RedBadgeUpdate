@@ -75,11 +75,7 @@ namespace RedBadge.Services
             }
         }
 
-<<<<<<< HEAD
         public TeamMessagingDetail GetTeamMessageById(int id, int TeamID)
-=======
-        public TeamMessagingDetail GetTeamMessageById(int MessageID)
->>>>>>> a8c1fb4577c4ffd31103d68d158f32b4f4c7c167
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -91,14 +87,9 @@ namespace RedBadge.Services
                 var entity =
                     ctx
                         .TeamMessaging
-<<<<<<< HEAD
                         .Single(e => e.MessageID == id);
 
                 if (entity1.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
-=======
-                        .Single(e => e.MessageID == MessageID);
-                if (entity.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
->>>>>>> a8c1fb4577c4ffd31103d68d158f32b4f4c7c167
                 {
                     return
                     new TeamMessagingDetail
