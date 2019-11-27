@@ -48,7 +48,6 @@ namespace RedBadge.Services
                 return ctx.SaveChanges() == 1;
             }
         }
-
         public TeamDetail GetTeamById(int id)
         {
             using (var ctx = new ApplicationDbContext())
@@ -75,7 +74,6 @@ namespace RedBadge.Services
                 };
             }
         }
-
         public bool AddAthleteToRosterByProfileID(int ProfileID, int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
@@ -94,7 +92,6 @@ namespace RedBadge.Services
                 return ctx.SaveChanges() == 1;
             }
         }
-      
         public bool RemoveAthleteFromRosterByProfileID(int ProfileID, int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
@@ -113,7 +110,6 @@ namespace RedBadge.Services
                 return ctx.SaveChanges() == 1;
             }
         }
-
         public IEnumerable<TeamListItem> GetAllTeamsByUserID(Guid UserID)
         {
             using (var ctx = new ApplicationDbContext())
@@ -137,17 +133,18 @@ namespace RedBadge.Services
                 return entity.ToArray();
             }
         }
-
         public bool UpdateTeam(TeamEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var query =
+                var entity =
                     ctx
                         .Team
                         .Single(e => e.TeamID == model.TeamID && e.UserID == model.UserID);
 
-                query.TeamName = model.TeamName;
+                entity.TeamName = model.TeamName;
+                //entity.Roster = model.Roster;
+                //entity.TeamEvents = model.TeamEvents;
                 return ctx.SaveChanges() == 1;
             }
         }

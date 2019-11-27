@@ -68,15 +68,10 @@ namespace RedBadge.Services
                 {
 
                     FileContent = bytes,
-
                     UserID = _userID,
-
                     Title = model.Title,
-
                     Content = model.Content,
-
                     CreatedUtc = DateTimeOffset.Now,
-
                     TeamID = model.TeamID,
 
                 };
@@ -95,26 +90,18 @@ namespace RedBadge.Services
 
         }
 
-
-
         public IEnumerable<TeamMessagingListItem> GetTeamMessages(int TeamID)
-
         {
 
             using (var ctx = new ApplicationDbContext())
 
             {
 
-
-
                 var query1 =
-
                     ctx
 
                     .TeamMessaging
-
                     .Where(e => e.TeamID == TeamID && e.TeamVariable.Roster.FirstOrDefault(i => i.UserID == _userID) != null)
-
                     .Select(
 
                         e =>
@@ -134,37 +121,30 @@ namespace RedBadge.Services
                                 CreatedUtc = e.CreatedUtc,
 
                                 Modifiedutc = e.Modifiedutc,
-
                                 TeamID = e.TeamID,
-
                                 UserID = e.UserID
+                            });
 
-                            }
-
-                        );
                 return query1.ToList();
             }
         }
-        public TeamMessagingDetail GetTeamMessageById(int id, int TeamID)
 
+        public TeamMessagingDetail GetTeamMessageById(int id, int TeamID)
         {
             using (var ctx = new ApplicationDbContext())
             {
-
                 var entity1 =
-
                     ctx
                         .Team
                         .Include("Roster")
                         .Single(e => e.TeamID == TeamID);
-
                 var entity =
 
                     ctx
                         .TeamMessaging
                         .Single(e => e.MessageID == id);
-                if (entity1.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
 
+                if (entity1.Roster.SingleOrDefault(e => e.UserID == _userID) != null)
                 {
                     return
                     new TeamMessagingDetail
