@@ -22,14 +22,16 @@ namespace RedBadge.Services
             var entity =
                 new Profile()
                 {
+                    UserID = _userID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Birthday = model.Birthday,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                     OtherInfo = model.OtherInfo,
+                    AthleteUsername = model.AthleteUsername,
                     MyTeams = model.MyTeams,
-                    Comment = model.Comment,
+                    Comments = new List<Comment>(),
                     CreatedUtc = model.CreatedUtc
                 };
 
@@ -51,7 +53,7 @@ namespace RedBadge.Services
                         .Single();
                 return new ProfileListItem
                 {
-                    UserID = _userID,
+                    UserID = query.UserID,
                     ProfileID = query.ProfileID,
                     FirstName = query.FirstName,
                     LastName = query.LastName,
@@ -59,8 +61,10 @@ namespace RedBadge.Services
                     Email = query.Email,
                     PhoneNumber = query.PhoneNumber,
                     OtherInfo = query.OtherInfo,
+                    AthleteUsername = query.AthleteUsername,
+                    ParentUsername = query.ParentUsername,
                     MyTeams = query.MyTeams,
-                    Comment = query.Comment,
+                    Comments = query.Comments,
                     CreatedUtc = query.CreatedUtc
                 };
             }
@@ -87,12 +91,29 @@ namespace RedBadge.Services
                                     Email = e.Email,
                                     PhoneNumber = e.PhoneNumber,
                                     OtherInfo = e.OtherInfo,
+                                    AthleteUsername = e.AthleteUsername,
+                                    ParentUsername = e.ParentUsername,
                                     MyTeams = e.MyTeams,
-                                    Comment = e.Comment,
+                                    Comments = e.Comments,
                                     CreatedUtc = e.CreatedUtc
                                 }
                         );
                 return query.ToArray();
+            }
+        }
+
+        public bool AddParentToAthlete (Guid UserID, string ParentUsername)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Profile
+                        .Single(e => e.UserID == UserID);
+
+                query.ParentUsername = ParentUsername;
+
+                return ctx.SaveChanges() == 1;
             }
         }
 
@@ -103,7 +124,7 @@ namespace RedBadge.Services
                 var entity =
                     ctx
                         .Profile
-                        .Single(e => e.ProfileID == model.ProfileID && e.UserID == _userID);
+                        .Single(e => e.ProfileID == model.ProfileID && e.UserID == model.UserID);
 
                 entity.FirstName = model.FirstName;
                 entity.LastName = model.LastName;
@@ -112,10 +133,11 @@ namespace RedBadge.Services
                 entity.PhoneNumber = model.PhoneNumber;
                 entity.OtherInfo = model.OtherInfo;
                 entity.MyTeams = model.MyTeams;
-                entity.Comment = model.Comment;
+                entity.Comments = model.Comments;
 
                 return ctx.SaveChanges() == 1;
             }
         }
+       
     }
 }

@@ -345,14 +345,13 @@ namespace RedBadgeNew.API.Controllers
                     if (result.Succeeded)
                     {
                         var result1 = UserManager.AddToRole(user.Id, "Parent");
-                        //service layer method call (using applictationdbcontext) -- ctx.profile.add(new profile {})
                         var service = new ProfileService(Guid.Parse(user.Id));
-                        var modelCreateProfile = service.CreateProfile(new ProfileCreate { UserID = Guid.Parse(user.Id) });
+                        var modelCreateProfile = service.CreateProfile(new ProfileCreate { UserID = Guid.Parse(user.Id), AthleteUsername = athleteUser.UserName});
+                        var connectAthlete = service.AddParentToAthlete(Guid.Parse(athleteUser.Id), user.UserName);
                     }
                     return Ok();
                 }
                 return BadRequest();
-
             }
             else
             {
