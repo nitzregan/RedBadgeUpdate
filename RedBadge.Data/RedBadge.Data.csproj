@@ -110,6 +110,10 @@
     <Compile Include="Migrations\201911222148580_commentupdate2.Designer.cs">
       <DependentUpon>201911222148580_commentupdate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911271816350_newupdate.cs" />
+    <Compile Include="Migrations\201911271816350_newupdate.Designer.cs">
+      <DependentUpon>201911271816350_newupdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTables\Team.cs" />
@@ -131,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911222148580_commentupdate2.resx">
       <DependentUpon>201911222148580_commentupdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911271816350_newupdate.resx">
+      <DependentUpon>201911271816350_newupdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
