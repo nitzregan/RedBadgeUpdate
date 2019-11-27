@@ -9,17 +9,19 @@ namespace RedBadgeNew.API.Controllers
     [Authorize]
     public class TeamController : ApiController
     {
-        public IHttpActionResult GetAllForCoach(Guid UserID)
-        {
-            TeamService teamService = CreateTeamService();
-            var team = teamService.GetAllTeamsForCoachByUserID(UserID);
-            return Ok(team);
-        }
+        //public IHttpActionResult GetAllForCoach(Guid UserID)
+        //{
+        //    TeamService teamService = CreateTeamService();
+        //    var team = teamService.GetAllTeamsForCoachByUserID(UserID);
+        //    return Ok(team);
+        //}
 
+        [HttpGet]
+        [Route("api/TeamsByUser")]
         public IHttpActionResult GetAllForAthlete(Guid UserID)
         {
             TeamService teamService = CreateTeamService();
-            var team = teamService.GetAllTeamsForAthleteByUserID(UserID);
+            var team = teamService.GetAllTeamsByUserID(UserID);
             return Ok(team);
         }
 
@@ -70,7 +72,33 @@ namespace RedBadgeNew.API.Controllers
             return Ok();
         }
 
+<<<<<<< HEAD
 
+=======
+        //[HttpPut]
+        //[Route("api/AddPlayer")]
+        //public IHttpActionResult Put(int ProfileID, int TeamID)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+        //    var service = CreateTeamService();
+        //    if (!service.AddAthleteToRosterByProfileID(ProfileID, TeamID))
+        //        return InternalServerError();
+        //    return Ok();
+        //}
+
+        //[HttpPut]
+        //[Route("api/RemovePlayer")]
+        //public IHttpActionResult PutBack(int ProfileID, int TeamID)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+        //    var service = CreateTeamService();
+        //    if (!service.RemoveAthleteFromRosterByProfileID(ProfileID, TeamID))
+        //        return InternalServerError();
+        //    return Ok();
+        //}
+>>>>>>> a8c1fb4577c4ffd31103d68d158f32b4f4c7c167
 
         [HttpPut]
         [Route("api/AddPlayer")]

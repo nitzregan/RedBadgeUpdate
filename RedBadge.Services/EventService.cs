@@ -22,6 +22,7 @@ namespace RedBadge.Services
             var entity =
                 new Event()
                 {
+                    TeamID = model.TeamID,
                     UserID = _userId,
                     Title = model.Title,
                     Content = model.Content,
@@ -108,6 +109,7 @@ namespace RedBadge.Services
                         e =>
                             new EventListItem
                             {
+                                TeamID = e.TeamID,
                                 EventID = e.EventID,
                                 Title = e.Title,
                                 Content = e.Content,
