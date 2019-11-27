@@ -31,7 +31,7 @@ namespace RedBadge.Services
                     OtherInfo = model.OtherInfo,
                     AthleteUsername = model.AthleteUsername,
                     MyTeams = model.MyTeams,
-                    Comment = model.Comment,
+                    Comments = new List<Comment>(),
                     CreatedUtc = model.CreatedUtc
                 };
 
@@ -64,7 +64,7 @@ namespace RedBadge.Services
                     AthleteUsername = query.AthleteUsername,
                     ParentUsername = query.ParentUsername,
                     MyTeams = query.MyTeams,
-                    Comment = query.Comment,
+                    Comments = query.Comments,
                     CreatedUtc = query.CreatedUtc
                 };
             }
@@ -94,7 +94,7 @@ namespace RedBadge.Services
                                     AthleteUsername = e.AthleteUsername,
                                     ParentUsername = e.ParentUsername,
                                     MyTeams = e.MyTeams,
-                                    Comment = e.Comment,
+                                    Comments = e.Comments,
                                     CreatedUtc = e.CreatedUtc
                                 }
                         );
@@ -133,10 +133,11 @@ namespace RedBadge.Services
                 entity.PhoneNumber = model.PhoneNumber;
                 entity.OtherInfo = model.OtherInfo;
                 entity.MyTeams = model.MyTeams;
-                entity.Comment = model.Comment;
+                entity.Comments = model.Comments;
 
                 return ctx.SaveChanges() == 1;
             }
         }
+       
     }
 }

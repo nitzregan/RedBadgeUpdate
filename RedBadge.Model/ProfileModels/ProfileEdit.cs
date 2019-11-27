@@ -13,7 +13,7 @@ namespace RedBadge.Model
         [Required]
         public Guid UserID { get; set; }
         [Key]
-        public int ProfileID { get; set; }
+        public int? ProfileID { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Late Name")]
@@ -23,7 +23,7 @@ namespace RedBadge.Model
         public string PhoneNumber { get; set; }
         public string OtherInfo { get; set; }
         public ICollection<Team> MyTeams { get; set; }
-        public string Comment { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public DateTimeOffset? CreatedUtc { get; set; }
     }
 }
