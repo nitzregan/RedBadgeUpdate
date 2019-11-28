@@ -17,6 +17,7 @@ namespace RedBadgeNew.API
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+            config.EnableCors();
             // Web API routes
             config.MapHttpAttributeRoutes();
 
