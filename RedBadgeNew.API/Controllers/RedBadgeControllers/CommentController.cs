@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
 namespace RedBadgeNew.API.Controllers
 {
     public class CommentController : ApiController
@@ -27,13 +26,12 @@ namespace RedBadgeNew.API.Controllers
                 return InternalServerError();
             return Ok();
         }
-        public IHttpActionResult GetEvent(int CommentID, int ProfileID)
+        public IHttpActionResult GetComment(int CommentID)
         {
             CommentService commentService = CreateCommentService();
-            var comments = commentService.GetCommentById(CommentID, ProfileID);
+            var comments = commentService.GetCommentById(CommentID);
             return Ok(comments);
         }
-
         public IHttpActionResult Delete(int CommentID)
         {
             var service = CreateCommentService();
