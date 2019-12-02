@@ -10,7 +10,6 @@ namespace RedBadge.Model
 {
     public class TeamCreate
     {
-        [Required]
         public Guid UserID { get; set; }
         [Key]
         public int TeamID { get; set; }

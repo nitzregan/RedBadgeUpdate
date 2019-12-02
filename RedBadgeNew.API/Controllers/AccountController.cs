@@ -60,12 +60,25 @@ namespace RedBadgeNew.API.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+            var roles = new List<string>();
+            roles.Add("Athlete");
+            roles.Add("Coach");
+            roles.Add("Parent");
+            string userRole = null;
+            foreach (var role in roles)
+            {
+                if (User.IsInRole(role))
+                {
+                    userRole = role;
+                    break;
+                }
+            }
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                Role = userRole
             };
         }
 

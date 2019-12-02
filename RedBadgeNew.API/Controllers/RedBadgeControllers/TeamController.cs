@@ -57,6 +57,7 @@ namespace RedBadgeNew.API.Controllers
 
         public IHttpActionResult Post(TeamCreate teamCreate, int ProfileID)
         {
+            teamCreate.UserID = Guid.Parse(User.Identity.GetUserId());
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var service = CreateTeamService();
