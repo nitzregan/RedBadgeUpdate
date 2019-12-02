@@ -51,6 +51,12 @@
     </Reference>
     <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+<<<<<<< HEAD
+=======
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.1.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+>>>>>>> 7c9b2ad73561b4f65a57315575dddef45feafa5d
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -70,6 +76,18 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,9 +96,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTables\Comment.cs" />
     <Compile Include="DataTables\Event.cs" />
     <Compile Include="DataTables\Profile.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Migrations\201911211800030_InitialCreate.cs" />
+    <Compile Include="Migrations\201911211800030_InitialCreate.Designer.cs">
+      <DependentUpon>201911211800030_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911221803372_Teammessagedata.cs" />
+    <Compile Include="Migrations\201911221803372_Teammessagedata.Designer.cs">
+      <DependentUpon>201911221803372_Teammessagedata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911222103041_commentupdate.cs" />
+    <Compile Include="Migrations\201911222103041_commentupdate.Designer.cs">
+      <DependentUpon>201911222103041_commentupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911222148580_commentupdate2.cs" />
+    <Compile Include="Migrations\201911222148580_commentupdate2.Designer.cs">
+      <DependentUpon>201911222148580_commentupdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911271816350_newupdate.cs" />
+    <Compile Include="Migrations\201911271816350_newupdate.Designer.cs">
+      <DependentUpon>201911271816350_newupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTables\Team.cs" />
     <Compile Include="DataTables\TeamMessaging.cs" />
@@ -88,6 +128,23 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911211800030_InitialCreate.resx">
+      <DependentUpon>201911211800030_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911221803372_Teammessagedata.resx">
+      <DependentUpon>201911221803372_Teammessagedata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911222103041_commentupdate.resx">
+      <DependentUpon>201911222103041_commentupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911222148580_commentupdate2.resx">
+      <DependentUpon>201911222148580_commentupdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911271816350_newupdate.resx">
+      <DependentUpon>201911271816350_newupdate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

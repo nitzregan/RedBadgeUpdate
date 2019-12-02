@@ -37,6 +37,7 @@ namespace RedBadge.Data
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamMessaging> TeamMessaging { get; set; }
         public DbSet<Event> Event { get; set; }
+        public DbSet<Comment> Comment { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
