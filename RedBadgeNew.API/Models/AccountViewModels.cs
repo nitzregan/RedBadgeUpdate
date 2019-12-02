@@ -28,10 +28,13 @@ namespace RedBadgeNew.API.Models
     public class UserInfoViewModel
     {
         public string Email { get; set; }
+        public string UserID { get; set; }
 
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+
+        public string Role { get; set; }
     }
 
     public class UserLoginInfoViewModel

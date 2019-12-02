@@ -19,6 +19,7 @@ namespace RedBadgeNew.API.Controllers
             var eventService = new EventService(userId);
             return eventService;
         }
+        [HttpGet]
         public IHttpActionResult GetAllEvents(int TeamID)
         {
             EventService eventService = CreateEventService();

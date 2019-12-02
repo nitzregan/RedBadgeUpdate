@@ -45,7 +45,7 @@ namespace RedBadge.Services
                     entity.Roster.Add(query);
                 }
                 
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 3;
             }
         }
         public TeamDetail GetTeamById(int id)
